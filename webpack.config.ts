@@ -1,6 +1,8 @@
-const path = require('path');
+import * as path from 'path';
+import * as webpack from 'webpack';
+import 'webpack-dev-server';
 
-module.exports = {
+const config: webpack.Configuration = {
   entry: './src/index.tsx',
   mode: 'development',
   module: {
@@ -24,11 +26,15 @@ module.exports = {
     filename: 'bundle.js',
   },
   devServer: {
-    static: path.join(__dirname, 'public/'),
+    static: {
+      directory: path.join(__dirname, 'public/'),
+    },
     devMiddleware: {
       publicPath: '/dist/'
     },
+    hot: true,
     port: 3000,
-    hot: 'only'
   }
 };
+
+export default config;
